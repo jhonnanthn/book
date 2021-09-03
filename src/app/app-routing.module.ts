@@ -1,8 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthorComponent } from './modules/author/author.component';
+import { BookComponent } from './modules/book/book.component';
+import { LibraryComponent } from './modules/library/library.component';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'library', component: LibraryComponent },
 
-const routes: Routes = [];
+  { path: 'book', component: BookComponent},
+  { path: 'book/:bookId', component: BookComponent},
+
+  { path: 'author', component: AuthorComponent},
+  { path: 'author/:authorId', component: AuthorComponent},
+
+  { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

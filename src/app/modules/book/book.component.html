@@ -1,0 +1,29 @@
+
+<div class="container">
+    <div class="table-responsive-md">
+        <div class="col-sm-12">
+            <input #txtBook class="form-control" id="txtBook" type="text" placeholder="Search by book" (keyup)="find(txtBook.value)">
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Book</th>
+                <th scope="col">Author</th>
+                <th scope="col">Publisher</th>
+                <th scope="col">Year</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let book of books | paginate: { itemsPerPage: 10, currentPage: page }">
+                <td>{{ book.title }}</td>
+                <td>{{ book.author.fullName }}</td>
+                <td>{{ book.publisher }}</td>
+                <td>{{ book.year }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="d-flex" id="wrapper">
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">Library </div>
+    <div class="list-group list-group-flush">
+      <a routerLink="/book" class="list-group-item list-group-item-action bg-light">Book</a>
+      <a routerLink="/author" class="list-group-item list-group-item-action bg-light">Author</a>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-3 mb-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
