@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthorComponent } from './modules/author/author.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { LibraryComponent } from './modules/library/library.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
@@ -23,7 +22,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
   declarations: [
     AppComponent,
     LibraryComponent,
-    AuthorComponent,
     NavbarComponent,
     FooterComponent,
     BookComponent,
