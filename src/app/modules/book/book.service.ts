@@ -14,7 +14,6 @@ export class BookService {
 
   constructor(
     private request: RequestApi,
-    private http: HttpClient
   ) {}
 
   fetchAll(params?: Observable<Params>): Observable<Book[]> {
@@ -23,5 +22,9 @@ export class BookService {
 
   fetchById(id: string): Observable<Book> {
     return this.request.get<Book>(`${this.bookUrl}/${id}`);
+  }
+
+  add(book: Book): Observable<Book> {
+    return this.request.post(`${this.bookUrl}`, book);
   }
 }

@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'library', component: LibraryComponent },
 
   { path: 'book', component: BookComponent},
-  { path: 'book/:bookId', component: BookComponent},
 
   { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];

@@ -7,9 +7,7 @@ import { BookService } from './book.service';
 @NgModule({
   imports: [
     CommonModule,
-    //ProductDetailsModule,
     BookRoutingModule,
-    //ShopModule,
   ],
   declarations: [
     BookComponent,
