@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { LibraryComponent } from './modules/library/library.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { BookComponent } from './modules/book/book.component';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
@@ -32,7 +31,6 @@ import { NgxMaskModule } from 'ngx-mask';
   ],
   declarations: [
     AppComponent,
-    LibraryComponent,
     NavbarComponent,
     FooterComponent,
     BookComponent,
