@@ -25,6 +25,8 @@ export class BookService {
   }
 
   add(book: Book): Observable<Book> {
+    if (book.bookId)
+      return this.request.put(`${this.bookUrl}/${book.bookId}`, book);
     return this.request.post(`${this.bookUrl}`, book);
   }
 

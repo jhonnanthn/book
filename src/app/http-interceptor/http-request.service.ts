@@ -44,6 +44,15 @@ export class RequestApi {
             .pipe(catchError(this.handleError));
     }
 
+    put(endpoint: string, param: any): Observable<any> {
+        let body = JSON.stringify(param);
+        return this.http
+            .put(`${this.apiUrl}${endpoint}`, body,
+                { headers: this.headers }
+            )
+            .pipe(catchError(this.handleError));
+    }
+
     delete(endpoint: string): Observable<any> {
         return this.http
             .delete(`${this.apiUrl}${endpoint}`)

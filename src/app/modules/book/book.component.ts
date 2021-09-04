@@ -4,8 +4,6 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Book } from 'src/app/shared/models/book';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { BookService } from './book.service';
-import $ from "jquery";
-import 'jquery-mask-plugin';
 
 @Component({
   selector: 'app-book',
@@ -30,11 +28,6 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {
     this.find();
-    $('#txtBookBirthday').mask('9999-99-99');
-  }
-
-  ngAfterViewInit() {
-    $('#txtBookBirthday').mask('9999-99-99');
   }
 
   onChangePage(pageOfItems: Array<any>) {
@@ -69,13 +62,13 @@ export class BookComponent implements OnInit {
 
   add(book: Book) {
     if (!book.title)
-      return this.showErrorNotifications("Name is required", "");
+      return this.showErrorNotifications("Name required", "");
     if (!book.author.cpf || !this.validateCpf(book.author.cpf))
       return this.showErrorNotifications("CFP invalid", "");
     if (!book.author.fullName)
-      return this.showErrorNotifications("Author is required", "");
+      return this.showErrorNotifications("Author required", "");
     if (!book.publisher)
-      return this.showErrorNotifications("Publisher is required", "");
+      return this.showErrorNotifications("Publisher required", "");
     if (!book.year || book.year.toString().length != 4)
       return this.showErrorNotifications("Year invalid", "");
     if (!book.author.birthday)
@@ -89,12 +82,12 @@ export class BookComponent implements OnInit {
       return this.showErrorNotifications("Birthday invalid", "");
     
     book.author.fullName = book.author.fullName.toUpperCase();
-    book.author.cpf = book.author.cpf.replace(/[^0-9]/g, '');
+    book.author.cpf = book.author.cpf.toString().replace(/[^0-9]/g, '');
 
     this.bookService.add(book)
       .subscribe(() =>
       {
-        this.showNotifications("Added book!", "Book successfully added");
+        this.showNotifications("", "Book successfully saved");
         this.find();
         this.modalService.dismissAll();
         this.clean();
@@ -107,7 +100,7 @@ export class BookComponent implements OnInit {
     this.bookService.delete(bookId)
     .subscribe(() =>
     {
-      this.showNotifications("Deleted", "Book successfully deleted");
+      this.showNotifications("", "Book successfully deleted");
       this.find();
       this.modalService.dismissAll();
       this.clean();
@@ -150,7 +143,7 @@ export class BookComponent implements OnInit {
   }
 
   private validateCpf(cpf){
-    cpf = cpf.replace(/\D/g, '');
+    cpf = cpf.toString().replace(/\D/g, '');
     if(cpf.toString().length != 11 || /^(\d)\1{10}$/.test(cpf)) return false;
     var result = true;
     [9,10].forEach(function(j){
