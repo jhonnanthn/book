@@ -44,6 +44,12 @@ export class RequestApi {
             .pipe(catchError(this.handleError));
     }
 
+    delete(endpoint: string): Observable<any> {
+        return this.http
+            .delete(`${this.apiUrl}${endpoint}`)
+            .pipe(catchError(this.handleError));
+    }
+
     private handleError(err: HttpErrorResponse) {
         let errorMessage = '';
         if (err.error instanceof ErrorEvent) {

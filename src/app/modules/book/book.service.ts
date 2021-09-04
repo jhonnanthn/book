@@ -20,11 +20,15 @@ export class BookService {
     return this.request.get<Book[]>(`${this.bookUrl}`, params);
   }
 
-  fetchById(id: string): Observable<Book> {
-    return this.request.get<Book>(`${this.bookUrl}/${id}`);
+  fetchById(bookId: string): Observable<Book> {
+    return this.request.get<Book>(`${this.bookUrl}/${bookId}`);
   }
 
   add(book: Book): Observable<Book> {
     return this.request.post(`${this.bookUrl}`, book);
+  }
+
+  delete(bookId: string): Observable<void> {
+    return this.request.delete(`${this.bookUrl}/${bookId}`);
   }
 }

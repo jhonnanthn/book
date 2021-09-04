@@ -17,6 +17,7 @@
                 <th scope="col">Author</th>
                 <th scope="col">Publisher</th>
                 <th scope="col">Year</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -25,6 +26,10 @@
                 <td>{{ book.author.fullName }}</td>
                 <td>{{ book.publisher }}</td>
                 <td>{{ book.year }}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" (click)="findById(book.bookId); open(mymodal)"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" (click)="findById(book.bookId); open(deleteModal)"><i class="fa fa-trash"></i></button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -104,3 +109,48 @@
   </div>
 </ng-template>
 
+
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Book</h4>
+      <button type="button" class="btnDismiss" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+          <div class="col-12">
+              <label for="txtBookName">Name</label>
+              <p>{{book.title}}</p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-6">
+              <label for="txtBookAuthor">Author</label>
+              <p>{{book.author.fullName}}</p>
+          </div>
+          <div class="col-3">
+              <label for="txtBookCpf">CPF</label>
+              <p>{{book.author.cpf}}</p>
+          </div>
+          <div class="col-3">
+              <label for="txtBookBirthday">Birthday</label>
+              <p>{{book.author.birthday.year}}-{{book.author.birthday.month}}-{{book.author.birthday.day}}</p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-9">
+              <label for="txtBookPublisher">Publisher</label>
+              <p>{{book.publisher}}</p>
+          </div>
+          <div class="col-3">
+              <label for="txtBookYear">Year</label>
+              <p>{{book.year}}</p>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="modal.close('Save click')">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="remove(book.bookId)">Delete</button>
+    </div>
+  </ng-template>

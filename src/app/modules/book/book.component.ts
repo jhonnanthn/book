@@ -25,20 +25,7 @@ export class BookComponent implements OnInit {
     private notifyService : NotificationService,
     private bookService: BookService,
     private modalService: NgbModal) { 
-      this.book = {
-        author: {
-          fullName: '',
-          birthday: {
-            year: undefined,
-            month: undefined,
-            day: undefined
-          },
-          cpf: '',
-        },
-        publisher: '',
-        title: '',
-        year: undefined
-      };
+      this.clean();
     }
 
   ngOnInit(): void {
@@ -63,6 +50,20 @@ export class BookComponent implements OnInit {
       .subscribe(results =>
       {
         this.books = results
+      });
+  }
+
+  findById (bookId: string) {
+    this.bookService.fetchById(bookId)
+      .subscribe(result =>
+      {
+        this.book = result;
+        let date = new Date(this.book.author.birthday);
+        this.book.author.birthday = {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate() + 1
+        }
       });
   }
 
@@ -96,27 +97,46 @@ export class BookComponent implements OnInit {
         this.showNotifications("Added book!", "Book successfully added");
         this.find();
         this.modalService.dismissAll();
-        this.book = {
-          author: {
-            fullName: '',
-            birthday: '',
-            cpf: '',
-          },
-          publisher: '',
-          title: '',
-          year: undefined
-        };
+        this.clean();
       }, () => {
         return this.showErrorNotifications("Failed to save the informations", "");
       });
   }
+
+  remove (bookId: string) {
+    this.bookService.delete(bookId)
+    .subscribe(() =>
+    {
+      this.showNotifications("Deleted", "Book successfully deleted");
+      this.find();
+      this.modalService.dismissAll();
+      this.clean();
+    }, () => {
+      return this.showErrorNotifications("Failed to delete the informations", "");
+    });
+  }
   
   open(content) {
+    this.clean();
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  clean() {
+    this.book = {
+      author: {
+        fullName: '',
+        birthday: '',
+        cpf: '',
+      },
+      publisher: '',
+      title: '',
+      year: undefined,
+      bookId: ''
+    };
   }
   
   private getDismissReason(reason: any): string {
